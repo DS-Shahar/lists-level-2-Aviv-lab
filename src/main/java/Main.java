@@ -3,7 +3,7 @@ public class List_Homework
 {
     public static void main(String[] args) 
     {
-        int [] a = {1, 2, 3, 4, 8};
+        int [] a = {1, 8, 7, 4, 3, 6, 5};
         int [] b = {1, 2, 3, 4, 5, 6, 7};
         Node<Integer> head1 = ex1_build_List(a);
         Node<Integer> head2 = ex1_build_List(b);
@@ -23,8 +23,8 @@ public class List_Homework
         //ex9_printIfInBoth(head1, head2);
         //ex10_listOfBoth(head1, head2);
         //System.out.println(ex11_delIfInBoth(head1, head2));
-        System.out.println(delMinInList(head1));
-        //System.out.println(level2_ex2(head1));
+        //System.out.println(delMinInList(head1));
+        System.out.println(level2_ex2(head1));
     }
     public static Node<Integer> ex1_build_List(int [] a)
     {
@@ -264,10 +264,24 @@ public class List_Homework
     }
     public static Node<Integer> level2_ex2(Node<Integer> head1)
     {
-        return head1;
-        
+        Node<Integer> dummy = new Node<Integer>(null);
+        Node<Integer> tail = dummy;
+        while (head1 != null)
+        {
+            int min = head1.getValue();
+            Node<Integer> p = head1.getNext();
+            while (p != null)
+            {
+                if (p.getValue() < min) min = p.getValue();
+                p = p.getNext();
+            }
+            tail.setNext(new Node<Integer>(min));
+            tail = tail.getNext();
+            head1 = ex6_del_first_num(head1, min);
+        }
+        return dummy.getNext();
     }
-    public static Node<Integer> delMinInList(Node<Integer> head1)
+    public static int delMinInList(Node<Integer> head1)
     {
         Node<Integer> head2 = head1;
         int x=head1.getValue();
@@ -277,7 +291,7 @@ public class List_Homework
                 x=head2.getNext().getValue();
             head2=head2.getNext();
         }
-        head1 = ex6_del_first_num(head1, x);
-        return head1;   
+        ex6_del_first_num(head1, x);
+        return x;   
     }
-}    
+}
