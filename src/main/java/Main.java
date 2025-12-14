@@ -3,7 +3,7 @@ public class List_Homework
 {
     public static void main(String[] args) 
     {
-        int [] a = {1, 8, 7, 4, 8, 6, 5};
+        int [] a = {1, 7, 4, 8, 6, 5};
         int [] b = {1, 2, 3, 4, 5, 6, 7};
         Node<Integer> head1 = ex1_build_List(a);
         Node<Integer> head2 = ex1_build_List(b);
@@ -25,7 +25,8 @@ public class List_Homework
         //System.out.println(ex11_delIfInBoth(head1, head2));
         //System.out.println(delMinInList(head1));
         //System.out.println(level2_ex2(head1));
-        System.out.println(level2_ex3(head1,8));
+        //System.out.println(level2_ex3(head1,8));
+        System.out.println(level2_ex4(head1));
     }
     public static Node<Integer> ex1_build_List(int [] a)
     {
@@ -326,4 +327,32 @@ public class List_Homework
             return -1;
         return start+end;
     }
+    public static <T> boolean level2_ex4(Node<T> head1)
+    {
+       int x=0;
+       Node<T> dummy=head1;
+       Node<T> dummy2=head1;
+       while (dummy!=null)
+       {
+          x++;
+          dummy=dummy.getNext();
+       }
+       dummy=head1;
+       for (int i=0; i<x; i++)
+       {
+           for (int j=0; j<x; j++)
+           {
+              if (j!=i)
+              {
+                  if (dummy.getValue().equals(dummy2.getValue()))
+                    return false;
+              }
+              dummy2=dummy2.getNext();  
+           }
+           dummy=dummy.getNext(); 
+           dummy2=head1;
+       }   
+       return true;
+    }
+    public static <T> boolean level2_ex5(Node<T> head1)
 }
