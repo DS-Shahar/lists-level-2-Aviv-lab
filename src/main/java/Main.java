@@ -3,7 +3,7 @@ public class List_Homework
 {
     public static void main(String[] args) 
     {
-        int [] a = {1, 7, 4, 8, 6, 5};
+        int [] a = {1, 8, 7, 4, 8, 6, 5};
         int [] b = {1, 2, 3, 4, 5, 6, 7};
         Node<Integer> head1 = ex1_build_List(a);
         Node<Integer> head2 = ex1_build_List(b);
@@ -26,7 +26,8 @@ public class List_Homework
         //System.out.println(delMinInList(head1));
         //System.out.println(level2_ex2(head1));
         //System.out.println(level2_ex3(head1,8));
-        System.out.println(level2_ex4(head1));
+        //System.out.println(level2_ex4(head1));
+        System.out.println(level2_ex5(head1));
     }
     public static Node<Integer> ex1_build_List(int [] a)
     {
@@ -354,5 +355,20 @@ public class List_Homework
        }   
        return true;
     }
-    public static <T> boolean level2_ex5(Node<T> head1)
+    public static <T> Node<T> level2_ex5(Node<T> head1)
+    {
+       Node<T> dummy1 = head1;
+       Node<T> dummy2 = new Node<T>(null);
+       Node<T> dummy3 = dummy2;
+       while (dummy1!=null) 
+       {
+          if (!isIn(dummy1.getNext(), dummy1.getValue()))
+          {
+            dummy2.setNext(new Node<T>(dummy1.getValue()));
+            dummy2=dummy2.getNext();
+          }
+          dummy1=dummy1.getNext();
+       } 
+       return dummy3.getNext();
+    }
 }
