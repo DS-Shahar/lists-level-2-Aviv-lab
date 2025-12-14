@@ -3,7 +3,7 @@ public class List_Homework
 {
     public static void main(String[] args) 
     {
-        int [] a = {1, 8, 7, 4, 3, 6, 5};
+        int [] a = {1, 8, 7, 4, 8, 6, 5};
         int [] b = {1, 2, 3, 4, 5, 6, 7};
         Node<Integer> head1 = ex1_build_List(a);
         Node<Integer> head2 = ex1_build_List(b);
@@ -24,7 +24,8 @@ public class List_Homework
         //ex10_listOfBoth(head1, head2);
         //System.out.println(ex11_delIfInBoth(head1, head2));
         //System.out.println(delMinInList(head1));
-        System.out.println(level2_ex2(head1));
+        //System.out.println(level2_ex2(head1));
+        System.out.println(level2_ex3(head1,8));
     }
     public static Node<Integer> ex1_build_List(int [] a)
     {
@@ -293,5 +294,36 @@ public class List_Homework
         }
         ex6_del_first_num(head1, x);
         return x;   
+    }
+    public static int level2_ex3(Node<Integer> head1, int x)
+    {
+        Node<Integer> saver = new Node<Integer>(null);
+        Node<Integer> cur = head1;
+        int start=0;
+        int end=0;
+        while (cur!=null)
+        {
+           if (cur.getValue()==x) 
+               break; 
+           start++;
+           cur=cur.getNext();
+        }
+        cur=head1;
+        while (cur!=null)
+        {
+            if (cur.getValue()==x)
+                saver=cur;
+            cur=cur.getNext();
+        }
+        cur=saver;
+        while (cur.getNext()!=null)
+        {
+            end++;
+            cur=cur.getNext();
+        }
+
+        if (saver.getValue()==null)
+            return -1;
+        return start+end;
     }
 }
