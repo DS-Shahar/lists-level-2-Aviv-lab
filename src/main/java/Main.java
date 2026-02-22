@@ -371,4 +371,96 @@ public class List_Homework
        } 
        return dummy3.getNext();
     }
+    ----------------------------------------------------------------------------------------------
+   public class Main {
+    public static Node<Integer> maxPositions(Node<Integer> head) {
+        Node<Integer> resHead = null, resTail = null;
+        Node<Integer> curr = head;
+        int idx = 0; 
+
+        while (curr != null) {
+            int count = 0;
+            int maxVal = Integer.MIN_VALUE;
+            int maxIdx = -1;
+            Node<Integer> temp = curr;
+
+            while (temp != null && count < 3) {
+                if (count == 0 || temp.getValue() > maxVal) {
+                    maxVal = temp.getValue();
+                    maxIdx = idx + count; 
+                }
+                temp = temp.getNext();
+                count++;
+            }
+
+            if (count < 3) break; 
+            Node<Integer> newNode = new Node<>(maxIdx);
+            if (resHead == null) {
+                resHead = resTail = newNode;
+            } else {
+                resTail.setNext(newNode);
+                resTail = newNode;
+            }
+
+            for (int k = 0; k < 3; k++) {
+                curr = curr.getNext();
+                idx++;
+            }
+        }
+
+        return resHead;
+    }
+
+    public static Node<Integer> deletePositions(Node<Integer> head, Node<Integer> positions) {
+        java.util.HashSet<Integer> toDelete = new java.util.HashSet<>();
+        Node<Integer> p = positions;
+        while (p != null) {
+            toDelete.add(p.getValue());
+            p = p.getNext();
+        }
+
+        Node<Integer> newHead = null, newTail = null;
+        Node<Integer> curr = head;
+        int idx = 0;
+        while (curr != null) {
+            if (!toDelete.contains(idx)) {
+                Node<Integer> newNode = new Node<>(curr.getValue());
+                if (newHead == null) {
+                    newHead = newTail = newNode;
+                } else {
+                    newTail.setNext(newNode);
+                    newTail = newNode;
+                }
+            }
+            curr = curr.getNext();
+            idx++;
+        }
+
+        return newHead;
+    }
+
+    public static void main(String[] args) {
+        Node<Integer> n0 = new Node<>(6);
+        Node<Integer> n1 = new Node<>(3);
+        Node<Integer> n2 = new Node<>(5);
+        Node<Integer> n3 = new Node<>(2);
+        Node<Integer> n4 = new Node<>(5);
+        Node<Integer> n5 = new Node<>(2);
+
+        n0.setNext(n1); n1.setNext(n2); n2.setNext(n3);
+        n3.setNext(n4); n4.setNext(n5);
+
+        Node<Integer> result = maxPositions(n0);
+        System.out.println(result); 
+
+
+        Node<Integer> pos0 = new Node<>(0);
+        Node<Integer> pos1 = new Node<>(4);
+        pos0.setNext(pos1);
+
+        Node<Integer> afterDelete = deletePositions(n0, pos0);
+        System.out.println(afterDelete);
+    }
+}
+
 }
