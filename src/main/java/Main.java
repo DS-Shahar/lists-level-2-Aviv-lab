@@ -464,3 +464,94 @@ public class List_Homework
 }
 
 }
+
+=====================================================================================
+public class idk 
+{
+    public static void main(String[] args) 
+    {
+        int [] a = {1, 2, 3, 4, 8};
+        int[] b = { 1, 2, 3, 4, 5, 6, 7, 8, 9};
+        Node<Integer> head1 = ex1_build_List(a);
+        Node<Integer> head2 = ex1_build_List(b);
+        System.out.println(delByIndex(head2, head1));
+    }
+
+    public static Node<Integer> c1(Node<Integer> l) 
+    {
+        Node<Integer> head = null;
+        Node<Integer> tail = null;
+
+        while (l != null && l.getNext() != null && l.getNext().getNext() != null) 
+        {
+            int a = l.getValue();
+            int b = l.getNext().getValue();
+            int c = l.getNext().getNext().getValue();
+
+            int max = Math.max(a, Math.max(b, c));
+
+            Node<Integer> newNode = new Node<>(max);
+
+            if (head == null) 
+            {
+                head = newNode;
+                tail = newNode;
+            } 
+            else 
+            {
+                tail.setNext(newNode);
+                tail = tail.getNext();
+            }
+            l = l.getNext().getNext().getNext();
+        }
+
+        return head;
+    }
+    
+    public static Node<Integer> delByIndex(Node<Integer> l, Node<Integer> i)
+    {
+        int count=0;
+        while (i!=null)
+        {
+            l=del_by_indexHelper(l, i.getValue()-count);
+            i=i.getNext();
+            count++;
+        }    
+        return l;
+    }
+
+    public static Node<Integer> del_by_indexHelper(Node<Integer> p, int x)
+    {
+        Node<Integer> h = new Node<> (null,p);
+        p=h;
+        int i=1;
+        while (p.hasNext())
+        {
+            if(x!=i)
+            {    
+              i++;
+              p=p.getNext();
+            }
+            else
+            {
+                p.setNext(p.getNext().getNext());
+                return h.getNext();
+            }  
+        }
+        return h.getNext();
+    }
+
+    public static Node<Integer> ex1_build_List(int[] a) 
+    {
+        Node<Integer> p = new Node<Integer>(a[0]);
+        Node<Integer> head = p;
+
+        for (int i = 1; i < a.length; i++) 
+        {
+            Node<Integer> x = new Node<Integer>(a[i]);
+            p.setNext(x);
+            p = p.getNext();
+        }
+        return head;
+    }
+}
